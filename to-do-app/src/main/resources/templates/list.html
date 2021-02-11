@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css} "/>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <br />
+        <div class="row">
+            <div class="col-6">
+                <h3>To Do's</h3>
+            </div>
+            <div class="col-6 text-right">
+                <form action="#" th:action="@{/todo/create}">
+                    <input type="submit" class="btn btn-success" value="Create To Do">
+                </form>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Created On</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${todos.empty}">
+                <td colspan="5"> No To Dos Available </td>
+            </tr>
+            <tr th:each="todo : ${todos}">
+                <td><span th:text="${todo.id}"></span></td>
+                <td><span th:text="${todo.name}"></span></td>
+                <td><span th:text="${todo.description}"></span></td>
+                <td><span th:text="${todo.createdOn}"></span></td>
+                <td>
+                    <a th:href="@{/todo/edit/{id}(id=${todo.id})}">Edit</a> |
+                    <a th:href="@{/todo/delete/{id}(id=${todo.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

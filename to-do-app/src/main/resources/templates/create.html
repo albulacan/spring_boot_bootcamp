@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css} "/>
+</head>
+<body>
+    <div class="container">
+        <br />
+        <br />
+        <h3 class="mb-4">Create To Do</h3>
+        <form action="#" th:action="@{/todo/insert}" th:object="${toDo}" method="post">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Description">
+                    </div>
+                </div>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Create"></input>
+            <a type="button" class="btn btn-danger" th:href="@{/todo/list}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
