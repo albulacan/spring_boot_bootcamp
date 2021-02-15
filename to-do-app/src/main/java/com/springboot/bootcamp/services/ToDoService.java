@@ -17,7 +17,7 @@ public class ToDoService {
         try {
             toDos.add(new ToDo(1, "Check Emails", "Work and personal emails"));
             toDos.add(new ToDo(2, "Buy Food", "Lunch and Dinner"));
-            toDos.add(new ToDo(3, "Take a Bath", "Take a rest before taking a bath after work"));
+            toDos.add(new ToDo(3, "Take a Bath", "Every day"));
         } catch (Exception e) {
             System.out.println(e);
         }

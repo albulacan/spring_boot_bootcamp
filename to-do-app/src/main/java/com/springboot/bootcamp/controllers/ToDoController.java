@@ -27,7 +27,6 @@ public class ToDoController {
     @GetMapping("/list")
     public String list(Model model) {
         model.addAttribute("todos", this.toDos);
-        model.addAttribute("selectedId", 0);
         return "list";
     }
 
