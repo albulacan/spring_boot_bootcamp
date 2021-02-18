@@ -6,42 +6,140 @@
     <div class="container">
         <br />
         <br />
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-6">
                 <h3>To Do's</h3>
             </div>
             <div class="col-6 text-right">
-                <form action="#" th:action="@{/todo/create}">
-                    <input type="submit" class="btn btn-success" value="Create To Do">
-                </form>
+<!--                <form action="#" th:action="@{/todo/create}">-->
+<!--                    <input type="submit" class="btn btn-success" value="Create To Do">-->
+<!--                </form>-->
+                    <form action="#" th:action="@{/logout}" method="post">
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createToDo">Create To Do</button>
+                        <input type="submit" class="btn btn-info" value="Logout">
+                    </form>
             </div>
         </div>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Created On</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:if="${todos.empty}">
-                <td colspan="5"> No To Dos Available </td>
-            </tr>
-            <tr th:each="todo : ${todos}">
-                <td><span th:text="${todo.id}"></span></td>
-                <td><span th:text="${todo.name}"></span></td>
-                <td><span th:text="${todo.description}"></span></td>
-                <td><span th:text="${todo.createdOn}"></span></td>
-                <td>
-                    <a th:href="@{/todo/edit/{id}(id=${todo.id})}">Edit</a> |
-                    <a th:href="@{/todo/delete/{id}(id=${todo.id})}">Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created On</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:if="${todos.empty}">
+                        <td colspan="5" class="text-center"> No To Do's Available </td>
+                    </tr>
+                    <tr th:each="todo : ${todos}">
+                        <td><span th:text="${todo.id}"></span></td>
+                        <td><span th:text="${todo.name}"></span></td>
+                        <td><span th:text="${todo.description}"></span></td>
+                        <td><span th:text="${todo.createdOn}"></span></td>
+                        <td>
+                            <a th:href="@{/todo/edit/{id}(id=${todo.id})}">Edit</a> |
+                            <!--                    <a href="#" data-toggle="modal" data-target="#editToDo">Edit</a>-->
+                            <a th:href="@{/todo/delete/{id}(id=${todo.id})}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <span class="text-muted font-italic">Showing 1 out of 1 record/s</span>
+            </div>
+            <div class="col">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination float-right">
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
+
+    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.6.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+<div class="modal fade" id="createToDo" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createModalLabel">Create To Do</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" th:action="@{/todo/insert}" th:object="${toDo}" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Description">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Create"></input>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editToDo" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Update To Do</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="#" th:action="@{/todo/update/{id}(id=${toDo.id})}" th:object="${toDo}" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Id</label>
+                        <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="Id" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Description">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <input type="submit" class="btn btn-primary" value="Update"></input>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

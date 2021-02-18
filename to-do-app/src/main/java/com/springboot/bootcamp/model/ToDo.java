@@ -1,12 +1,24 @@
-package com.springboot.bootcamp.models;
+package com.springboot.bootcamp.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 
+@Entity
+@Table(name = "ToDo")
 public class ToDo {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "Id")
     private long id;
+
+    @Column(name = "Name")
     private String name;
+
+    @Column(name = "Description")
     private String description;
+
+    @Column(name = "CreatedOn")
     private Timestamp createdOn;
 
     public ToDo() {
