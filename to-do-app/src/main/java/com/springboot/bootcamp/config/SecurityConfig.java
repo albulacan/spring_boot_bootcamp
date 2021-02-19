@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/resources/**").permitAll()
                 .antMatchers("/login*").permitAll()
                 .anyRequest().authenticated()
@@ -50,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/login.html")
                 .and()
-                .csrf().disable();
+                .csrf()
+                .disable();
     }
 
 }

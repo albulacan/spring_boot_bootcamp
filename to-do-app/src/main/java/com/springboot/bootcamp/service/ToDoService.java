@@ -2,7 +2,6 @@ package com.springboot.bootcamp.service;
 
 import com.springboot.bootcamp.model.ToDo;
 import com.springboot.bootcamp.repository.ToDoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +12,6 @@ public class ToDoService {
 
     private ToDoRepository toDoRepository;
 
-    @Autowired
     public ToDoService(ToDoRepository toDoRepository) {
         this.toDoRepository = toDoRepository;
     }

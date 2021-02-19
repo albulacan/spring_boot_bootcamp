@@ -7,13 +7,13 @@
         <div class="container">
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
+                    <li class="nav-item">
                         <a class="nav-link" th:href="@{/todo/list}">To Do's</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" th:href="@{/user/list}">Users</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" th:href="@{/role/list}">Roles</a>
                     </li>
                 </ul>
@@ -28,10 +28,10 @@
         <br />
         <div class="row mb-2">
             <div class="col-6">
-                <h3>To Do's</h3>
+                <h3>Roles</h3>
             </div>
             <div class="col-6 text-right">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createToDo">Create To Do</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createToDo">Create Role</button>
             </div>
         </div>
         <div class="row">
@@ -42,22 +42,19 @@
                         <th>Id</th>
                         <th>Name</th>
                         <th>Description</th>
-                        <th>Created On</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:if="${todos.empty}">
-                        <td colspan="5" class="text-center"> No To Do's Available </td>
+                    <tr th:if="${roles.empty}">
+                        <td colspan="5" class="text-center"> No Roles Available </td>
                     </tr>
-                    <tr th:each="todo : ${todos}">
-                        <td><span th:text="${todo.id}"></span></td>
-                        <td><span th:text="${todo.name}"></span></td>
-                        <td><span th:text="${todo.description}"></span></td>
-                        <td><span th:text="${todo.createdOn}"></span></td>
+                    <tr th:each="role : ${roles}">
+                        <td><span th:text="${role.id}"></span></td>
+                        <td><span th:text="${role.name}"></span></td>
+                        <td><span th:text="${role.description}"></span></td>
                         <td>
-                            <a th:href="@{/todo/edit/{id}(id=${todo.id})}">Edit</a> |
-                            <a th:href="@{/todo/delete/{id}(id=${todo.id})}">Delete</a>
+                            <a th:href="@{/role/edit/{id}(id=${role.id})}">Edit</a>
                         </td>
                     </tr>
                     </tbody>
@@ -99,12 +96,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createModalLabel">Create To Do</h5>
+                <h5 class="modal-title" id="createModalLabel">Create Role</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" th:action="@{/todo/insert}" th:object="${toDo}" method="post">
+            <form action="#" th:action="@{/role/insert}" th:object="${role}" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -118,39 +115,6 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     <input type="submit" class="btn btn-primary" value="Create"></input>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="editToDo" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Update To Do</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="#" th:action="@{/todo/update/{id}(id=${toDo.id})}" th:object="${toDo}" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="name">Id</label>
-                        <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="Id" disabled>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Name">
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <input type="text" class="form-control" th:field="*{description}" id="description" placeholder="Description">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <input type="submit" class="btn btn-primary" value="Update"></input>
                 </div>
             </form>
         </div>

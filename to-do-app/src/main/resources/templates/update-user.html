@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0/css/bootstrap.min.css} "/>
+</head>
+<body>
+<div class="container">
+    <br />
+    <br />
+    <h3 class="mb-4">Update User</h3>
+    <form action="#" th:action="@{/user/update/{id}(id=${user.id})}" th:object="${user}" method="post">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="username">Name</label>
+                    <input type="text" class="form-control" th:field="*{username}" id="username" placeholder="Username" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select class="form-control" id="role" th:field="*{roles}">
+                        <option th:value="0" th:text="'Select a role'" selected></option>
+                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"></option>
+                    </select>
+                </div>
+                <div class="form-group pt-3">
+                    <label for="password">Is Active</label>
+                    <input type="checkbox" th:field="*{active}" id="active" placeholder="Is Active">
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Update"></input>
+        <a type="button" class="btn btn-danger" th:href="@{/user/list}">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
